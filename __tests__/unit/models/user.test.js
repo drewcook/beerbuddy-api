@@ -8,7 +8,7 @@ describe('user.generateAuthToken', () => {
     const payload = { _id: new mongoose.Types.ObjectId().toHexString(), isAdmin: true };
     const user = new User(payload);
     const token = user.generateAuthToken();
-    const decoded = jwt.verify(token, config.get('VIDLY_APP_SECRET'));
+    const decoded = jwt.verify(token, config.get('BEERBUDDY_APP_SECRET'));
     expect(decoded).toMatchObject(payload);
   });
 });

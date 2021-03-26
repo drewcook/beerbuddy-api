@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
 // This puts this in a centralized spot to maintin, but allows any instance to use it.
 userSchema.methods.generateAuthToken = function() {
   // set the auth in the response header so we can use it in the client
-  const token = jwt.sign({ _id: this._id, isAdmin: this.isAdmin }, config.get('VIDLY_APP_SECRET'));
+  const token = jwt.sign({ _id: this._id, isAdmin: this.isAdmin }, config.get('BEERBUDDY_APP_SECRET'));
   return token;
 };
 

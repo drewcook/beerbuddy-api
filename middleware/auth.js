@@ -7,7 +7,7 @@ const auth = (req, res, next) => {
 
   try {
     // jwt.verify() will either return the payload or throw an error
-    const decoded = jwt.verify(token, config.get('VIDLY_APP_SECRET'));
+    const decoded = jwt.verify(token, config.get('BEERBUDDY_APP_SECRET'));
     req.user = decoded;
     next();
   }
