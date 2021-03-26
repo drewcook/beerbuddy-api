@@ -32,4 +32,4 @@ Local log files are created which will store any logs for development.  They are
 Additionally, there is plumbing set up to log errors into a MongoDB table of `[appname]_logs`.  Currently it is commented out.
 
 ## Using the Production Service
-The service is deployed to a Heroku environment, and the data is being stored in a MongoDB Atlas Cloud database.  The current production application can be viewed [here](https://beerbuddy-api.herokuapp.com/).
+The service is deployed to a Heroku environment, and the data is being stored in a MongoDB Atlas Cloud database.  The current production service can be accessed [here](https://beerbuddy-api.herokuapp.com/).
