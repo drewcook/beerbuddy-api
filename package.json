@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+		"build": "NODE_ENV=production node index.js",
     "start": "node index.js",
     "start:test": "NODE_ENV=test node index.js",
     "test": "jest --watchAll --verbose --detectOpenHandles",
