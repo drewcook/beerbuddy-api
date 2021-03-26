@@ -30,7 +30,7 @@ const defaultTransports = [
   // - Addistionally, write all logs into our mongo db instance
   // new winston.transports.MongoDB({
   //   level: 'error',
-  //   db: 'mongodb://localhost/vidly',
+  //   db: 'mongodb://localhost/beerbuddy',
   //   options: {
   //     useNewUrlParser: true,
   //     useUnifiedTopology: true,

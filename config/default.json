@@ -1,4 +1,4 @@
 {
-  "name": "My Vidly App",
-  "MONGODB_CONNECTION_STRING": "mongodb://localhost/vidly"
+  "name": "BeerBuddy",
+  "MONGODB_CONNECTION_STRING": "mongodb://localhost/beerbuddy"
 }

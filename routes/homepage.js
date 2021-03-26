@@ -5,8 +5,8 @@ const router = express.Router();
 router.get('/', (req, res) => {
   // This will look at our pug views and serve up index.js using the provided variables
   res.render('index', {
-    title: 'The Vidly App',
-    message: 'Vidly Service API'
+    title: 'The BeerBuddy App',
+    message: 'BeerBuddy Service API'
   });
 });
 
