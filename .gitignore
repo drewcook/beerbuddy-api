@@ -1,0 +1,11 @@
+# Package directory
+node_modules/
+
+# Log files
+*.log
+
+# Jest coverage report
+coverage/
+
+# Mac OS files
+.DS_Store
