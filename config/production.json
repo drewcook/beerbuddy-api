@@ -1,5 +1,4 @@
 {
   "name": "BeerBuddy - Production",
-	"BEERBUDDY_APP_SECRET": 12345,
 	"MONGODB_CONNECTION_STRING": "mongodb+srv://aws_admin:Psxobq6YM1myTquR@cluster0.ti874.mongodb.net/beerbuddy"
 }
