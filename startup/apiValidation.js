@@ -14,7 +14,7 @@ const Joi = require('joi');
   1 byte = 8 bits
   2^8 = 256 numbers can be stored in one byte
   2^24 = 16M
-  So ObjectIds are very unique!
+  So ObjectIds are very unique! 1 in 16 million
 
   MongoDB Driver -> MongoDB
   Mongoose is an abstraction over MongoDB Driver, which creates the IDs
