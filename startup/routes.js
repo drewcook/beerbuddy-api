@@ -1,10 +1,13 @@
 const express = require('express');
+var cors = require('cors')
 const logError = require('../middleware/logError');
 const homepage = require('../routes/homepage');
 const users = require('../routes/users');
 const auth = require('../routes/auth');
 
 const setupRoutes = (app) => {
+	// Support CORS // TODO: distinguish between dev and prod?
+	app.use(cors())
   // Built-in Express middleware
   app.use(express.json()); // parses req.body
   // key=value&key=value, parses this and populates req.body in json
