@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Listen on server port for requests
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5280;
 const server = app.listen(port, () => logger.info(`Listening on port ${port}...`));
 
 module.exports = server;
