@@ -65,7 +65,7 @@ router.put("/:id", [auth, validate(validateList)], async (req, res) => {
 });
 
 // Delete list
-// Must be an admin, use checkAdmin middleware
+// TODO: Must be a list that belongs to user making request
 router.delete("/:id", auth, async (req, res) => {
 	const list = await List.findByIdAndRemove(req.params.id);
 	if (!list) return res.status(404).send(notFoundMsg);
@@ -73,18 +73,9 @@ router.delete("/:id", auth, async (req, res) => {
 	res.send(list);
 });
 
-// Get Lists based off of current user
+// Get lists based off of current user
 router.get("/user/:id", auth, async (req, res) => {
-	const user = await User.findById(req.params.id);
-	if (!user)
-		return res.status(404).send("The user with the given ID was not found.");
-
-	let lists = [];
-	for (const listId of user.listIds) {
-		const list = await List.findById(listId);
-		lists = [...lists, list];
-	}
-
+	const lists = await List.find({ userId: req.params.id });
 	res.send(lists);
 });
 
