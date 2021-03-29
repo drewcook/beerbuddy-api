@@ -50,11 +50,11 @@ router.post("/", auth, async (req, res) => {
 
 // Update list
 router.put("/:id", [auth, validate(validateList)], async (req, res) => {
-	const { name } = req.body;
+	const { name, beerIds, breweryIds } = req.body;
 	const updatedList = await List.findByIdAndUpdate(
 		req.params.id,
 		{
-			$set: { name },
+			$set: { name, beerIds, breweryIds },
 		},
 		{ new: true }
 	);
