@@ -9,7 +9,7 @@ const router = express.Router();
 const notFoundMsg = "The list with the given ID was not found.";
 
 // Get all lists
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
 	const lists = await List.find().sort({ name: 1 });
 	res.send(lists);
 });
@@ -76,6 +76,7 @@ router.delete("/:id", auth, async (req, res) => {
 // Get lists based off of current user
 router.get("/user/:id", auth, async (req, res) => {
 	const lists = await List.find({ userId: req.params.id });
+	console.log("got lists from db", { lists });
 	res.send(lists);
 });
 
