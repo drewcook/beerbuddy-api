@@ -2,8 +2,9 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 
 const auth = (req, res, next) => {
-	// TODO: check for the cookie instead
-	const token = req.header("x-auth-token");
+	const token = req.headers.authorization
+		? req.headers.authorization.split(" ")[1] // "Bearer [token]"
+		: undefined;
 	if (!token) return res.status(401).send("Access denied. No token provided.");
 
 	try {
