@@ -1,5 +1,5 @@
 const express = require("express");
-var cors = require("cors");
+const cors = require("cors");
 const logError = require("../middleware/logError");
 const homepage = require("../routes/homepage");
 const users = require("../routes/users");
@@ -7,8 +7,16 @@ const auth = require("../routes/auth");
 const lists = require("../routes/lists");
 
 const setupRoutes = (app) => {
-	// Support CORS // TODO: distinguish between dev and prod?
-	app.use(cors());
+	// Support CORS since our client will be at a different origin
+	const corsOptions = {
+		origin:
+			process.env.NODE_ENV === "production"
+				? "https://beerbuddy-web.herokuapp.com"
+				: "http://localhost:3000",
+		credentials: true,
+	};
+	app.use(cors(corsOptions));
+
 	// Built-in Express middleware
 	app.use(express.json()); // parses req.body
 	// key=value&key=value, parses this and populates req.body in json
