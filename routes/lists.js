@@ -76,7 +76,6 @@ router.delete('/:id', auth, async (req, res) => {
 // Get lists based off of current user
 router.get('/user/:id', auth, async (req, res) => {
 	const lists = await List.find({ userId: req.params.id })
-	console.log('got lists from db', { lists })
 	res.send(lists)
 })
 
