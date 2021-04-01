@@ -1,18 +1,18 @@
-const Joi = require("joi");
-const mongoose = require("mongoose");
+const Joi = require('joi')
+const mongoose = require('mongoose')
 
-const validateList = (list) => {
+const validateList = list => {
 	const schema = Joi.object({
 		userId: Joi.objectId(),
 		name: Joi.string().required().min(5).max(50),
 		beerIds: Joi.array().items(Joi.string()),
 		breweryIds: Joi.array().items(Joi.string()),
-		dateCreated: Joi.date().greater("now"),
-		dateLastModified: Joi.date().greater("now"),
-	});
+		dateCreated: Joi.date().greater('now'),
+		dateLastModified: Joi.date().greater('now'),
+	})
 
-	return schema.validate(list);
-};
+	return schema.validate(list)
+}
 
 const listSchema = new mongoose.Schema({
 	userId: {
@@ -39,11 +39,11 @@ const listSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now(),
 	},
-});
+})
 
-const List = mongoose.model("List", listSchema);
+const List = mongoose.model('List', listSchema)
 
 module.exports = {
 	List,
 	validate: validateList,
-};
+}

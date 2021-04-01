@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('joi')
 
 /*
   MongoDB ObjectId Notes:
@@ -21,7 +21,7 @@ const Joi = require('joi');
 */
 
 const setupApiValidation = () => {
-  Joi.objectId = require('joi-objectid')(Joi);
-};
+	Joi.objectId = require('joi-objectid')(Joi)
+}
 
-module.exports = setupApiValidation;
+module.exports = setupApiValidation
