@@ -10,8 +10,7 @@
     "test:coverage": "jest --coverage --silent --detectOpenHandles",
     "dev": "nodemon index.js",
 		"prettify": "npx prettier --config ./prettier.config.js ./**/*.js --write",
-		"prettify:check": "npx prettier --config ./prettier.config.js ./**/*.js --check",
-		"getpretty": "npx prettier --config ./prettier.config.js ./**/*.js --check && npm run prettify"
+		"prettify:check": "npx prettier --config ./prettier.config.js ./**/*.js --check"
 	},
   "engines": {
     "node": "14.16.0",
