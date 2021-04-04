@@ -66,13 +66,18 @@ router.put('/:id', [auth, validate(validateList)], async (req, res) => {
 
 router.patch('/:id', [auth, validate(validateListPatch)], async (req, res) => {
 	const { beerId, breweryId } = req.body
+	let payload
+	// This may be in support to just have a generic update that could support multiple things
+	if (beerId) {
+		payload = { beerIds: beerId }
+	}
+	if (breweryId) {
+		payload = { ...payload, breweryIds: breweryId }
+	}
 	const updatedList = await List.findByIdAndUpdate(
 		req.params.id,
 		{
-			$addToSet: {
-				beerIds: beerId,
-				breweryIds: breweryId,
-			},
+			$addToSet: payload,
 		},
 		{ new: true },
 	)
