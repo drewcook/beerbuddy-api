@@ -1,6 +1,7 @@
 const Joi = require('joi')
 const mongoose = require('mongoose')
 
+// For valdiating PUT requests
 const validateList = list => {
 	const schema = Joi.object({
 		userId: Joi.objectId(),
@@ -9,6 +10,16 @@ const validateList = list => {
 		breweryIds: Joi.array().items(Joi.string()),
 		dateCreated: Joi.date().greater('now'),
 		dateLastModified: Joi.date().greater('now'),
+	})
+
+	return schema.validate(list)
+}
+
+// For validating PATCH requests
+const validateListPatch = list => {
+	const schema = Joi.object({
+		beerId: Joi.string(),
+		breweryId: Joi.string(),
 	})
 
 	return schema.validate(list)
@@ -46,4 +57,5 @@ const List = mongoose.model('List', listSchema)
 module.exports = {
 	List,
 	validate: validateList,
+	validateListPatch,
 }

@@ -1,7 +1,7 @@
 const auth = require('../middleware/auth')
 const validate = require('../middleware/validate')
 const validateObjectId = require('../middleware/validateObjectId')
-const { List, validate: validateList } = require('../models/List')
+const { List, validate: validateList, validateListPatch } = require('../models/List')
 const { User } = require('../models/User')
 const express = require('express')
 const router = express.Router()
@@ -55,6 +55,24 @@ router.put('/:id', [auth, validate(validateList)], async (req, res) => {
 		req.params.id,
 		{
 			$set: { name, beerIds, breweryIds },
+		},
+		{ new: true },
+	)
+
+	if (!updatedList) return res.status(404).send(notFoundMsg)
+
+	res.send(updatedList)
+})
+
+router.patch('/:id', [auth, validate(validateListPatch)], async (req, res) => {
+	const { beerId, breweryId } = req.body
+	const updatedList = await List.findByIdAndUpdate(
+		req.params.id,
+		{
+			$addToSet: {
+				beerIds: beerId,
+				breweryIds: breweryId,
+			},
 		},
 		{ new: true },
 	)
