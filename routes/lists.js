@@ -64,7 +64,8 @@ router.put('/:id', [auth, validate(validateList)], async (req, res) => {
 	res.send(updatedList)
 })
 
-router.patch('/:id', [auth, validate(validateListPatch)], async (req, res) => {
+// Add item to list
+router.patch('/:id/add', [auth, validate(validateListPatch)], async (req, res) => {
 	const { beerId, breweryId } = req.body
 	let payload
 	// This may be in support to just have a generic update that could support multiple things
@@ -78,6 +79,30 @@ router.patch('/:id', [auth, validate(validateListPatch)], async (req, res) => {
 		req.params.id,
 		{
 			$addToSet: payload,
+		},
+		{ new: true },
+	)
+
+	if (!updatedList) return res.status(404).send(notFoundMsg)
+
+	res.send(updatedList)
+})
+
+// Remove item from list
+router.patch('/:id/remove', [auth, validate(validateListPatch)], async (req, res) => {
+	const { beerId, breweryId } = req.body
+	let payload
+	// This may be in support to just have a generic update that could support multiple things
+	if (beerId) {
+		payload = { beerIds: beerId }
+	}
+	if (breweryId) {
+		payload = { ...payload, breweryIds: breweryId }
+	}
+	const updatedList = await List.findByIdAndUpdate(
+		req.params.id,
+		{
+			$pull: payload,
 		},
 		{ new: true },
 	)
