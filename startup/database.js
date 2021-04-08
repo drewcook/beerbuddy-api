@@ -1,9 +1,9 @@
-const config = require('config')
 const mongoose = require('mongoose')
 const { logger } = require('../startup/logging')
+require('dotenv').config()
 
 const setupDb = () => {
-	const db = config.get('MONGODB_CONNECTION_STRING')
+	const db = process.env.MONGODB_CONNECTION_STRING
 	// Connect to the local mongoDB instance
 	mongoose
 		.connect(db, {

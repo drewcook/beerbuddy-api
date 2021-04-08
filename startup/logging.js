@@ -1,10 +1,10 @@
 const morgan = require('morgan')
 const winston = require('winston')
-const config = require('config')
 require('winston-mongodb')
 require('express-async-errors')
+require('dotenv').config()
 
-const db = config.get('MONGODB_CONNECTION_STRING')
+const db = process.env.MONGODB_CONNECTION_STRING
 
 const defaultTransports = [
 	// - Write all logs with level `error` and below to `error.log`
