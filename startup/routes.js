@@ -19,7 +19,8 @@ const setupRoutes = app => {
 	const whitelist = process.env.NODE_ENV === 'production' ? prodWhitelist : devWhiteList
 	const corsOptions = {
 		origin: (origin, callback) => {
-			if (whitelist.indexOf(origin) !== -1) {
+			const serverToServerRequest = !origin
+			if (whitelist.indexOf(origin) !== -1 || serverToServerRequest) {
 				callback(null, true)
 			} else {
 				callback(new Error(`Origin not allowed by CORS - ${origin}`))
