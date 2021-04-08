@@ -7,12 +7,24 @@ const auth = require('../routes/auth')
 const lists = require('../routes/lists')
 
 const setupRoutes = app => {
-	// Support CORS since our client will be at a different origin
+	// Support CORS since our client will be at a different origin(s)
+	const prodWhitelist = [
+		'https://beerbuddy-web.herokuapp.com',
+		'https://beerbuddy.io',
+		'http://beerbuddy.io',
+		'https://www.beerbuddy.io',
+		'http://www.beerbuddy.io',
+	]
+	const devWhiteList = ['http://localhost:3000']
+	const whitelist = process.env.NODE_ENV === 'production' ? prodWhitelist : devWhiteList
 	const corsOptions = {
-		origin:
-			process.env.NODE_ENV === 'production'
-				? 'https://beerbuddy-web.herokuapp.com'
-				: 'http://localhost:3000',
+		origin: (origin, callback) => {
+			if (whitelist.indexOf(origin) !== -1) {
+				callback(null, true)
+			} else {
+				callback(new Error('Not allowed by CORS'))
+			}
+		},
 		credentials: true,
 	}
 	app.use(cors(corsOptions))
