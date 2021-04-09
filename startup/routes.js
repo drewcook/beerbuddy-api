@@ -16,7 +16,7 @@ const setupRoutes = app => {
 		'https://www.beerbuddy.io',
 		'http://www.beerbuddy.io',
 	]
-	const devWhiteList = ['http://localhost:3000']
+	const devWhiteList = ['http://localhost:5440']
 	const whitelist = process.env.NODE_ENV === 'production' ? prodWhitelist : devWhiteList
 	const corsOptions = {
 		origin: (origin, callback) => {
@@ -36,7 +36,7 @@ const setupRoutes = app => {
 	// key=value&key=value, parses this and populates req.body in json
 	app.use(express.urlencoded({ extended: true }))
 	// uses a static folder for assets, and provides a route to view the assets
-	// for example http://localhost:3000/public/readme.txt
+	// for example http://localhost:5280/public/readme.txt
 	app.use(express.static('public'))
 
 	// Setup API routes

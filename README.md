@@ -20,7 +20,7 @@ Then, to start the application, run the following command:
 ```bash
 npm start
 ```
-This will spin up the server on `localhost:3000` attempt to make a connection to your local MongoDB instance.
+This will spin up the server on `localhost:5280` attempt to make a connection to your local MongoDB instance.
 
 ### Logs
 Local log files are created which will store any logs for development.  They are as follows:
