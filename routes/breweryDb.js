@@ -3,6 +3,7 @@ const axios = require('axios')
 const auth = require('../middleware/auth')
 const express = require('express')
 const router = express.Router()
+require('dotenv').config()
 const BREWERYDB_API_HOST = process.env.BREWERYDB_API_HOST
 const BREWERYDB_SANDBOX_API_HOST = process.env.BREWERYDB_SANDBOX_API_HOST
 const BREWERYDB_API_KEY = process.env.BREWERYDB_API_KEY
