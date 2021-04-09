@@ -5,6 +5,7 @@ const homepage = require('../routes/homepage')
 const users = require('../routes/users')
 const auth = require('../routes/auth')
 const lists = require('../routes/lists')
+const breweryDb = require('../routes/breweryDb')
 
 const setupRoutes = app => {
 	// Support CORS since our client will be at a different origin(s)
@@ -43,6 +44,7 @@ const setupRoutes = app => {
 	app.use('/api/users', users)
 	app.use('/api/auth', auth)
 	app.use('/api/lists', lists)
+	app.use('/api/brewerydb', breweryDb)
 
 	// Custom middleware functions, called in sequence
 	// always define in separate file from index.js

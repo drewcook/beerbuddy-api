@@ -5,6 +5,7 @@ const auth = (req, res, next) => {
 	const token = req.headers.authorization
 		? req.headers.authorization.split(' ')[1] // "Bearer [token]"
 		: undefined
+
 	if (!token) return res.status(401).send('Access denied. No token provided.')
 
 	try {
