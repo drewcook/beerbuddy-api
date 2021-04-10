@@ -15,10 +15,8 @@ const KEY_PARAM = USE_SANDBOX_API === 'true' ? '' : `?key=${BREWERYDB_API_KEY}`
 
 // @desc Gets all beers
 router.post('/beer', auth, async (req, res) => {
-	console.log(req.body)
 	const url = `${BASE_URL}/beers${KEY_PARAM}&p=${req.body.page}&withBreweries=y`
 	const response = await axios.get(url)
-	console.log('yup', response.data.currentPage, response.data.data.length)
 	res.send(response.data)
 })
 
