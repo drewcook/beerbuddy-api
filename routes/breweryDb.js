@@ -9,6 +9,10 @@ const BREWERYDB_SANDBOX_API_HOST = process.env.BREWERYDB_SANDBOX_API_HOST
 const BREWERYDB_API_KEY = process.env.BREWERYDB_API_KEY
 const USE_SANDBOX_API = process.env.USE_SANDBOX_API
 
+if (!BREWERYDB_API_HOST || !BREWERYDB_API_KEY || !BREWERYDB_SANDBOX_API_HOST) {
+	throw new Error('BREWERYDB config vars must be set')
+}
+
 // Support for using the BreweryDB sandbox API instead
 const BASE_URL = USE_SANDBOX_API === 'true' ? BREWERYDB_SANDBOX_API_HOST : BREWERYDB_API_HOST
 const KEY_PARAM = USE_SANDBOX_API === 'true' ? '' : `?key=${BREWERYDB_API_KEY}`
@@ -16,10 +20,9 @@ const KEY_PARAM = USE_SANDBOX_API === 'true' ? '' : `?key=${BREWERYDB_API_KEY}`
 // @desc Gets all beers
 router.post('/beer', auth, async (req, res) => {
 	const url = `${BASE_URL}/beers${KEY_PARAM}&p=${req.body.page}&withBreweries=y`
-	console.log(url)
-	res.send(['hello', 'world'])
-	// const response = await axios.get(url)
-	// res.send(response.data)
+	const response = await axios.get(url)
+	console.log(url, response.data)
+	res.send(response.data)
 })
 
 // @desc Gets a beer by ID
