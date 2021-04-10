@@ -2,6 +2,7 @@ const Joi = require('joi')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const config = require('config')
+const { UserFavorite } = require('./UserFavorite')
 
 const validateUser = user => {
 	const schema = Joi.object({
@@ -38,6 +39,9 @@ const userSchema = new mongoose.Schema({
 	},
 	listIds: {
 		type: [String],
+	},
+	favorites: {
+		type: [UserFavorite.schema],
 	},
 	isAdmin: Boolean,
 })
