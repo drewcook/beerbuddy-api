@@ -39,14 +39,16 @@ const defaultTransports = [
 const logger = winston.createLogger({
 	// If we're not in production then log to the `console` with the format:
 	// `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
-	transports: [
-		...defaultTransports,
-		new winston.transports.Console({
-			format: winston.format.combine(winston.format.colorize(), winston.format.simple()),
-		}),
-	],
+	transports:
+		process.env.NODE_ENV === 'production'
+			? defaultTransports
+			: [
+					...defaultTransports,
+					new winston.transports.Console({
+						format: winston.format.combine(winston.format.colorize(), winston.format.simple()),
+					}),
+			  ],
 	exceptionHandlers: [
-		...defaultTransports,
 		// - Write all unhandled exception logs to `exceptions.log`
 		new winston.transports.File({ filename: 'exceptions.log' }),
 		new winston.transports.Console({
@@ -54,12 +56,8 @@ const logger = winston.createLogger({
 		}),
 	],
 	rejectionHandlers: [
-		...defaultTransports,
 		// - Write all unhandled rejection logs to `rejections.log`
 		new winston.transports.File({ filename: 'rejections.log' }),
-		new winston.transports.Console({
-			format: winston.format.combine(winston.format.colorize(), winston.format.prettyPrint()),
-		}),
 	],
 })
 
@@ -69,11 +67,11 @@ const setupLogging = app => {
 		throw ex
 	})
 
-	// if (process.env.NODE_ENV !== 'production') {
-	// Also add in morgan logging middleware
-	app.use(morgan('tiny'))
-	logger.info('Morgan enabled...')
-	// }
+	if (process.env.NODE_ENV !== 'production') {
+		// Also add in morgan logging middleware
+		app.use(morgan('tiny'))
+		logger.info('Morgan enabled...')
+	}
 }
 
 module.exports = {
