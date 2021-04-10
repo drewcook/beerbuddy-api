@@ -19,7 +19,7 @@ router.post('/beer', auth, async (req, res) => {
 	console.log(url)
 	res.send(['hello', 'world'])
 	// const response = await axios.get(url)
-	res.send(response.data)
+	// res.send(response.data)
 })
 
 // @desc Gets a beer by ID
