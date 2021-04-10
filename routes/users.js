@@ -81,23 +81,21 @@ router.put('/:id/favorites', [auth, validate(validateUserFavorite)], async (req,
 
 	if (!updatedUser) return res.status(404).send(notFoundMsg)
 
-	res.send(updatedUser.favorites)
+	res.send(updatedUser.favorites.find(fav => fav.itemId === itemId))
 })
 
 // Remove a favorite item from the user
 router.delete('/:id/favorites/:favoriteId', auth, async (req, res) => {
 	const { id, favoriteId } = req.params
-	const updatedUser = await User.findByIdAndUpdate(
-		id,
-		{
-			$pull: { favorites: { _id: favoriteId } },
-		},
-		{ new: true },
-	)
+	const originalUser = await User.findByIdAndUpdate(id, {
+		$pull: { favorites: { _id: favoriteId } },
+	})
 
-	if (!updatedUser) return res.status(404).send(notFoundMsg)
+	if (!originalUser) return res.status(404).send(notFoundMsg)
 
-	res.send(updatedUser.favorites)
+	const itemDeleted = originalUser.favorites.filter(fav => fav._id.toString() === favoriteId)[0]
+	console.log(typeof itemDeleted._id)
+	res.send(itemDeleted)
 })
 
 module.exports = router
