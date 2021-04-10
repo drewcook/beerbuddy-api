@@ -46,6 +46,7 @@ const logger = winston.createLogger({
 		}),
 	],
 	exceptionHandlers: [
+		...defaultTransports,
 		// - Write all unhandled exception logs to `exceptions.log`
 		new winston.transports.File({ filename: 'exceptions.log' }),
 		new winston.transports.Console({
@@ -53,6 +54,7 @@ const logger = winston.createLogger({
 		}),
 	],
 	rejectionHandlers: [
+		...defaultTransports,
 		// - Write all unhandled rejection logs to `rejections.log`
 		new winston.transports.File({ filename: 'rejections.log' }),
 		new winston.transports.Console({
