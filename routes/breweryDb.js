@@ -17,6 +17,7 @@ const KEY_PARAM = USE_SANDBOX_API === 'true' ? '' : `?key=${BREWERYDB_API_KEY}`
 router.post('/beer', auth, async (req, res) => {
 	const url = `${BASE_URL}/beers${KEY_PARAM}&p=${req.body.page}&withBreweries=y`
 	const response = await axios.get(url)
+	console.log(url, response.data)
 	res.send(response.data)
 })
 
@@ -31,6 +32,7 @@ router.get('/beer/:id', auth, async (req, res) => {
 router.post('/breweries', auth, async (req, res) => {
 	const url = `${BASE_URL}/breweries${KEY_PARAM}&p=${req.body.page}&withLocations=y`
 	const response = await axios.get(url)
+	console.log(url, response.data)
 	res.send(response.data)
 })
 
