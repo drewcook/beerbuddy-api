@@ -1,10 +1,13 @@
 const auth = require('../middleware/auth')
 const validate = require('../middleware/validate')
 const { User, validate: validateUser } = require('../models/User')
+const { UserFavorite, validate: validateUserFavorite } = require('../models/UserFavorite')
 const _ = require('lodash')
 const bcrypt = require('bcrypt')
 const express = require('express')
 const router = express.Router()
+
+const notFoundMsg = 'The user with the given ID was not found.'
 
 router.get('/', async (req, res) => {
 	const users = await User.find().sort('name')
@@ -39,6 +42,62 @@ router.post('/', validate(validateUser), async (req, res) => {
 	} catch (ex) {
 		res.status(500).send(ex.errors)
 	}
+})
+
+// Should mainly be used on User Profile page to globally update user
+router.put('/:id', validate(validateUser), async (req, res) => {
+	const { name, email, listIds, favoriteIds } = req.body
+	const updatedUser = await User.findByIdAndUpdate(
+		req.params.id,
+		{
+			$set: { name, email, listIds, favoriteIds },
+		},
+		{ new: true },
+	)
+
+	if (!updatedUser) return res.status(404).send(notFoundMsg)
+
+	res.send(updatedUser)
+})
+
+// Get user favorites
+router.get('/:id/favorites', auth, async (req, res) => {
+	const user = await User.findById(req.params.id)
+	if (!user) return res.status(404).send(notFoundMsg)
+
+	res.send(user.favorites)
+})
+
+// Add a favorite item to the user
+router.put('/:id/favorites', [auth, validate(validateUserFavorite)], async (req, res) => {
+	const { itemId, name, type } = req.body
+	const updatedUser = await User.findByIdAndUpdate(
+		req.params.id,
+		{
+			$addToSet: { favorites: { itemId, name, type } },
+		},
+		{ new: true },
+	)
+
+	if (!updatedUser) return res.status(404).send(notFoundMsg)
+
+	res.send(updatedUser.favorites)
+})
+
+// Remove a favorite item from the user
+router.delete('/:id/favorites/:favoriteId', auth, async (req, res) => {
+	const { id, favoriteId } = req.params
+	const updatedUser = await User.findByIdAndUpdate(
+		id,
+		{
+			$pull: { favorites: { _id: favoriteId } },
+		},
+		{ new: true },
+	)
+
+	if (!updatedUser) return res.status(404).send(notFoundMsg)
+
+	res.send(updatedUser.favorites)
 })
 
 module.exports = router
