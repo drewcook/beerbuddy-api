@@ -10,6 +10,7 @@ const validateUser = user => {
 		email: Joi.string().required().min(5).max(255).email(),
 		password: Joi.string().required().min(5).max(255),
 		listIds: Joi.array().items(Joi.objectId()),
+		dateCreated: Joi.date().greater('now'),
 	})
 
 	return schema.validate(user)
@@ -44,6 +45,10 @@ const userSchema = new mongoose.Schema({
 		type: [UserFavorite.schema],
 	},
 	isAdmin: Boolean,
+	dateCreated: {
+		type: Date,
+		default: Date.now,
+	},
 })
 
 // Setup a method right on the User schema so that all instances can call it.
