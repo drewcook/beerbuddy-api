@@ -94,7 +94,7 @@ router.delete('/:id/favorites/:favoriteId', auth, async (req, res) => {
 	if (!originalUser) return res.status(404).send(notFoundMsg)
 
 	const itemDeleted = originalUser.favorites.filter(fav => fav._id.toString() === favoriteId)[0]
-	console.log(typeof itemDeleted._id)
+
 	res.send(itemDeleted)
 })
 
