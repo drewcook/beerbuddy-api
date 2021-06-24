@@ -35,7 +35,7 @@ const setupRoutes = app => {
 	app.use(express.json()) // parses req.body
 	// key=value&key=value, parses this and populates req.body in json
 	app.use(express.urlencoded({ extended: true }))
-	// uses a static folder for assets, and provides a route to view the assets
+	// uses a static folder for assets, and			 provides a route to view the assets
 	// for example http://localhost:5280/public/readme.txt
 	app.use(express.static('public'))
 
@@ -45,6 +45,10 @@ const setupRoutes = app => {
 	app.use('/api/auth', auth)
 	app.use('/api/lists', lists)
 	app.use('/api/brewerydb', breweryDb)
+
+	app.get('/health', (req, res) => {
+		res.send('OK')
+	})
 
 	// Custom middleware functions, called in sequence
 	// always define in separate file from index.js
