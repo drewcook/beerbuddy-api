@@ -33,3 +33,7 @@ Additionally, there is plumbing set up to log errors into a MongoDB table of `[a
 
 ## Using the Production Service
 The service is deployed to a Heroku environment, and the data is being stored in a MongoDB Atlas Cloud database.  The current production service can be accessed [here](https://api.beerbuddy.com/).
+
+<p align="center">
+ <img src="https://visitor-badge.glitch.me/badge?page_id=drewcook.beerbuddy-api" alt="visitor count"/>
+</p>
