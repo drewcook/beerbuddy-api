@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 // Get the current user
 // we protect this by having a custom endpoint that uses the JWT to get the user payload
 router.get('/me', auth, async (req, res) => {
-	// rememver, we set req.user from our auth middleware
+	// remember, we set req.user from our auth middleware
 	// we will only hit this route handler if the middleware succeeds
 	const user = await User.findById(req.user._id).select('-password')
 	res.send(user)
